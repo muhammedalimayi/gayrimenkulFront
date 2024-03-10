@@ -1,0 +1,50 @@
+<p-table [lazyLoadOnInit]="true" styleClass="p-datatable-striped" #dt [value]="db.tableData" 
+    editMode="row" [paginator]="true" [rows]="10" [showCurrentPageReport]="true"
+    [rowsPerPageOptions]="[10,25,50]">
+    <ng-template pTemplate="caption">
+        <div class="table-header">
+            <span class="p-input-icon-left">
+                <i class="pi pi-search"></i>
+                <input [(ngModel)]="query" pInputText type="text" (input)="globalSearch()"
+                    placeholder="Ara" />
+            </span>
+
+        </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+        <tr>
+
+            <th pSortableColumn="title">
+                <p-sortIcon field="title"></p-sortIcon>
+                İlan Başlığı
+            </th>
+            <th pSortableColumn="price">
+                <p-sortIcon field="price"></p-sortIcon>
+                Fiyat
+            </th>
+            <th pSortableColumn="fitment">
+                <p-sortIcon field="fitment"></p-sortIcon>
+                Durumu
+            </th>
+            <th pSortableColumn="status">
+                <p-sortIcon field="status"></p-sortIcon>
+                Eşyalı
+            </th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-advert>
+        <tr>
+            <td>{{advert.title}}</td>
+            <td>{{advert.price | number:"1.2-2"}}</td>
+            <td>
+                <span *ngIf="advert.fitment==0">Eşyalı</span>
+                <span *ngIf="advert.fitment==1">Eşyasız</span>
+            </td>
+            <td>
+                <span *ngIf="advert.status==0">Kiralık</span>
+                <span *ngIf="advert.status==1">Satılık</span>
+            </td>
+        </tr>
+    </ng-template>
+
+</p-table>
